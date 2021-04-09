@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+div#middle-section, div#bottom-section {
+  background-color: grey;
+  margin: 5px;
+}
+
+div#game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  height: 300px;
+}
+
+div#game header {
+  text-align: center;
+}
+
+div#middle-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div#bottom-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
