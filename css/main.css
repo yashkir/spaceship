@@ -25,6 +25,7 @@ div#middle-section {
 }
 
 div#boards {
+  background-color: navy;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -50,10 +51,15 @@ div#command-history {
 
 div.square {
   display: inline-block;
-  background-color: grey;
+  background-color: blue;
+  border-radius: 2px;
   margin: 0px;
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   margin: 1px;
+}
+
+div.square.ship {
+  background-color: white;
 }
 

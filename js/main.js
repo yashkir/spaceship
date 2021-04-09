@@ -16,13 +16,14 @@ class Player {
     constructor (name) {
         this.name = name;
         this.board = new Board();
+        this.ships = []
         this.targetsSelected = [];
     }
 }
 
 class Ship {
-    constructor (size) {
-        this.parts = 0;
+    constructor (size, position) {
+        this.position = position;
         switch (size) {
             case 1:
                 this.parts = [0, 0];
@@ -44,12 +45,24 @@ class SpaceShipGame {
         this.state.players = [new Player("human"), new Player("computer")];
         this.state.phase = 0;
 
-        this.renderer = new Renderer(this);
+        this.renderer = new Renderer();
         this.input = new Input();
 
+        this.placeShips(this.state.players[0]);
+        this.placeShips(this.state.players[1]);
+
         this.renderer.render();
-        this.renderer.renderBoard(1, this.state.players[0].board);
-        this.renderer.renderBoard(2, this.state.players[1].board);
+        this.renderer.renderBoard(0, this.state.players[0]);
+        this.renderer.renderBoard(1, this.state.players[1]);
+        this.renderer.renderShips(this.state.players[0].ships, this.state.players[0].board, 0);
+        this.renderer.renderShips(this.state.players[1].ships, this.state.players[1].board, 1);
+    }
+
+    placeShips (player) {
+        let ship = new Ship(2, [2, 2]);
+        player.ships.push(ship);
+        ship = new Ship(2, [3, 2]);
+        player.ships.push(ship);
     }
 }
 
@@ -62,24 +75,40 @@ class SpaceShipGame {
  * Renders the game state to the target element.
  */
 class Renderer {
-    constructor(game) {
-        this.game = game;
+    constructor() {
+        this.squares = [];
     }
 
     render () {
         //this.targetElement.innerHTML = "Hello World";
     }
 
-    renderBoard(number, board) {
-        let targetElement = document.getElementById("board" + number);
+    renderBoard(number, player) {
+        let board = player.board;
+
+        this.squares[number] = Array(board.width);
+        let targetElement = document.getElementById("board" + (number + 1));
+
         for (let i = 0; i < board.width; i++) {
-            for (let i = 0; i < board.width; i++) {
+            this.squares[number][i] = Array(board.height);
+            for (let j = 0; j < board.height; j++) {
                 let square = document.createElement("div");
                 square.classList.add(SQUARE_CLASS);
                 targetElement.append(square);
+
+                this.squares[number][i][j] = square;
             }
             targetElement.append(document.createElement("br"));
         }
+    }
+
+    renderShips(ships, board, playerNum) {
+        ships.forEach(ship => {
+            let x = ship.position[0];
+            let y = ship.position[1];
+            console.log(x, y);
+            this.squares[playerNum][x][y].classList.add("ship");
+        });
     }
 }
 
