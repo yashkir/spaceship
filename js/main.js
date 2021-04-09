@@ -105,6 +105,8 @@ class SpaceShipGame {
  */
 class HTMLView {
     constructor() {
+        this.boards = [document.getElementById("board1"),
+                       document.getElementById("board2")];
         this.squares = [];
     }
 
@@ -116,7 +118,7 @@ class HTMLView {
         let board = player.board;
 
         this.squares[number] = Array(board.width);
-        let targetElement = document.getElementById("board" + (number + 1));
+        let targetElement = this.boards[number];
 
         for (let i = 0; i < board.width; i++) {
             this.squares[number][i] = Array(board.height);
@@ -135,7 +137,6 @@ class HTMLView {
         ships.forEach(ship => {
             let x = ship.position[0];
             let y = ship.position[1];
-            console.log(x, y);
             this.squares[playerNum][x][y].classList.add("ship");
         });
     }
