@@ -45,7 +45,7 @@ class SpaceShipGame {
         this.state.players = [new Player("human"), new Player("computer")];
         this.state.phase = 0;
 
-        this.renderer = new Renderer();
+        this.renderer = new HTMLView();
         this.input = new Input(this.commandHandler);
 
         this.placeShips(this.state.players[0]);
@@ -103,7 +103,7 @@ class SpaceShipGame {
 /* 
  * Renders the game state to the target element.
  */
-class Renderer {
+class HTMLView {
     constructor() {
         this.squares = [];
     }
