@@ -10,9 +10,13 @@
       //{ squaresOccupied, alive }
 //}
 
+let SQUARE_CLASS = "square";
+
 // --- MODEL --------------------------
 class Board {
     constructor (width = 10, height = 10) {
+        this.width = width;
+        this.height = height;
         this.squares = new Array(width);
         for (let i = 0; i < this.squares.length; i++) {
             this.squares[i] = Array(height).fill(0);
@@ -24,6 +28,7 @@ class Player {
     constructor (name) {
         this.name = name;
         this.board = new Board();
+        this.targetsSelected = [];
     }
 }
 
@@ -55,6 +60,8 @@ class SpaceShipGame {
         this.input = new Input();
 
         this.renderer.render();
+        this.renderer.renderBoard(1, this.state.players[0].board);
+        this.renderer.renderBoard(2, this.state.players[1].board);
     }
 }
 
@@ -69,11 +76,22 @@ class SpaceShipGame {
 class Renderer {
     constructor(game) {
         this.game = game;
-        this.targetElement = document.getElementById("boards");
     }
 
     render () {
-        this.targetElement.innerHTML = "Hello World";
+        //this.targetElement.innerHTML = "Hello World";
+    }
+
+    renderBoard(number, board) {
+        let targetElement = document.getElementById("board" + number);
+        for (let i = 0; i < board.width; i++) {
+            for (let i = 0; i < board.width; i++) {
+                let square = document.createElement("div");
+                square.classList.add(SQUARE_CLASS);
+                targetElement.append(square);
+            }
+            targetElement.append(document.createElement("br"));
+        }
     }
 }
 
