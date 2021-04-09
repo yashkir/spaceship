@@ -1,15 +1,3 @@
-//gameState { activePlayer,
-            //turnNum,
-            //phase = enum(newGameScreen, placingShips, selectingTargets, firing) }
-//players { computer,  human }
-//players.human =  {
-  //targetsChosen []
-  //board {}
-    //attacksReceived []
-    //ships []
-      //{ squaresOccupied, alive }
-//}
-
 let SQUARE_CLASS = "square";
 
 // --- MODEL --------------------------
