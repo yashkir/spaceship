@@ -42,6 +42,7 @@ class Ship {
         }
     }
 }
+
 // --- CONTROLLER ---------------------
 class SpaceShipGame {
     constructor () {
@@ -49,6 +50,11 @@ class SpaceShipGame {
         this.state.activePlayer = 0;
         this.state.players = [new Player("human"), new Player("computer")];
         this.state.phase = 0;
+
+        this.renderer = new Renderer(this);
+        this.input = new Input();
+
+        this.renderer.render();
     }
 }
 
@@ -61,9 +67,9 @@ class SpaceShipGame {
  * Renders the game state to the target element.
  */
 class Renderer {
-    constructor(game, targetElement) {
+    constructor(game) {
         this.game = game;
-        this.targetElement = targetElement;
+        this.targetElement = document.getElementById("boards");
     }
 
     render () {
@@ -74,21 +80,47 @@ class Renderer {
 class Input {
     constructor (type = "console") {
         this.type = type;
+
         if (type == "console") {
+            this.inputField = document.getElementById("command-prompt");
             let button = document.getElementById("command-prompt-btn");
-            button.addEventListener("click", function (evt) {
-                let input = document.getElementById("command-prompt");
-                console.log("Player -> " + input.value);
+
+            this.inputField.addEventListener("keyup", (evt) => {
+                if (event.code == "Enter") {
+                    evt.preventDefault();
+                    this.sendPrompt();
+                }
             });
+
+            button.addEventListener("click", () => {
+                this.sendPrompt();
+            });
+        } else {
+            throw Error("Invalid input type specified.");
+        }
+    }
+
+    sendPrompt () {
+        this.commandHandler(this.inputField.value);
+        this.inputField.value = "";
+    }
+
+    commandHandler (message) {
+        let log = document.getElementById("command-history");
+        let commands = {
+            'new game' : () => console.log("new game started"),
+        }
+        console.log("Player -> " + message);
+        let messageEl = document.createElement("span");
+        messageEl.innerHTML = "Player: " + message + "<br>";
+        log.prepend(messageEl);
+        
+        if (Object.keys(commands).includes(message)) {
+            commands[message]();
         }
     }
 }
 
 // --- INIT ---------------------------
+// The SpaceShipGame object should handle everything.
 let game = new SpaceShipGame();
-let renderer = new Renderer(game, document.getElementById("boards"));
-let input = new Input();
-
-console.log(game.state);
-renderer.render();
-

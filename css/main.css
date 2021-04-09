@@ -3,7 +3,6 @@
 }
 
 div#middle-section, div#bottom-section {
-  background-color: grey;
   margin: 5px;
 }
 
@@ -11,8 +10,6 @@ div#game {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 300px;
-  height: 300px;
 }
 
 div#game header {
@@ -23,10 +20,23 @@ div#middle-section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  min-height: 200px;
+}
+
+div#boards, div#p1-info, div#p2-info {
+  padding: 20px;
+  border: 4px solid black;
+  border-radius: 5px;
 }
 
 div#bottom-section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+div#command-history {
+  font-family: monospace;
+  height: 100px;
+  overflow: scroll;
 }
