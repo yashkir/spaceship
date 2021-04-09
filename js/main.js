@@ -46,7 +46,7 @@ class SpaceShipGame {
         this.state.phase = 0;
 
         this.renderer = new Renderer();
-        this.input = new Input();
+        this.input = new Input(this.commandHandler);
 
         this.placeShips(this.state.players[0]);
         this.placeShips(this.state.players[1]);
@@ -63,6 +63,35 @@ class SpaceShipGame {
         player.ships.push(ship);
         ship = new Ship(2, [3, 2]);
         player.ships.push(ship);
+    }
+
+    selectSquare (board, position) {
+       board.selectedSquares.push(position);
+    }
+
+    clearSelection (board) {
+        board.selectedSquares = [];
+    }
+
+    commandHandler(player, command) {
+        let c = command.split(",");
+        switch(c[0]) {
+            case "select":
+                //"select 1 5 6" selects player 1 square at [5,6]
+                this.selectSquare(this.state.players[c[1]].board, c[2][3]);
+                break;
+            case "clear":
+                //"clear 1" clears all selections on player 1's board
+                this.clearSelection(this.state.players[c[1]].board);
+                break;
+            case "fire":
+                break;
+            case "debug":
+                console.log("debugging");
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -113,8 +142,9 @@ class Renderer {
 }
 
 class Input {
-    constructor (type = "console") {
+    constructor (commandHandler, type = "console") {
         this.type = type;
+        this.dispatchTo = commandHandler;
 
         if (type == "console") {
             this.inputField = document.getElementById("command-prompt");
@@ -153,6 +183,8 @@ class Input {
         if (Object.keys(commands).includes(message)) {
             commands[message]();
         }
+
+        this.dispatchTo(null, message);
     }
 }
 

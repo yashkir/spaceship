@@ -26,12 +26,13 @@ div#middle-section {
 
 div#boards {
   background-color: navy;
+  margin: 0 10px;
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
 
-div#game header, div#boards, div#p1-info, div#p2-info {
+div#boards, div#p1-info, div#p2-info {
   padding: 10px;
   border: 4px solid black;
   border-radius: 5px;
