@@ -86,3 +86,12 @@ computer fires as player
 turnNum++
 activePlayer = human
 ```
+
+Other Ideas
+===========
+
+- help popup
+- graphics instead of simple squares
+- sound effects
+- multiplayer!
+- coordinates ABC 123
