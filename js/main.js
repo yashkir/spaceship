@@ -9,16 +9,23 @@ class Controller {
             return message;
         });
 
-        this.renderer.render();
-        this.renderer.renderBoard(0, this.game.state.players[0]);
-        this.renderer.renderBoard(1, this.game.state.players[1]);
+        this.renderer.createBoard(0, this.game.state.players[0].board.width,
+                                     this.game.state.players[0].board.height);
+        this.renderer.createBoard(1, this.game.state.players[1].board.width,
+                                     this.game.state.players[1].board.height);
     }
 
     update () {
-        this.renderer.renderShips(this.game.state.players[0].ships, 
-                                  this.game.state.players[0].board, 0);
-        this.renderer.renderShips(this.game.state.players[1].ships,
-                                  this.game.state.players[1].board, 1);
+        this.renderShips(this.game.state.players[0].ships, 0);
+        this.renderShips(this.game.state.players[1].ships, 1);
+    }
+
+    renderShips(ships, playerNum) {
+        ships.forEach(ship => {
+            let x = ship.position[0];
+            let y = ship.position[1];
+            this.renderer.tagSquare(playerNum, x, y, "ship");
+        });
     }
 }
 

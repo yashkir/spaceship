@@ -7,35 +7,25 @@ class HTMLView {
         this.squares = [];
     }
 
-    render () {
-        //this.targetElement.innerHTML = "Hello World";
-    }
+    createBoard(boardId, width, height) {
+        this.squares[boardId] = Array(width);
+        let targetElement = this.boards[boardId];
 
-    renderBoard(number, player) {
-        let board = player.board;
-
-        this.squares[number] = Array(board.width);
-        let targetElement = this.boards[number];
-
-        for (let i = 0; i < board.width; i++) {
-            this.squares[number][i] = Array(board.height);
-            for (let j = 0; j < board.height; j++) {
+        for (let i = 0; i < width; i++) {
+            this.squares[boardId][i] = Array(height);
+            for (let j = 0; j < height; j++) {
                 let square = document.createElement("div");
                 square.classList.add(SQUARE_CLASS);
                 targetElement.append(square);
 
-                this.squares[number][i][j] = square;
+                this.squares[boardId][i][j] = square;
             }
             targetElement.append(document.createElement("br"));
         }
     }
 
-    renderShips(ships, board, playerNum) {
-        ships.forEach(ship => {
-            let x = ship.position[0];
-            let y = ship.position[1];
-            this.squares[playerNum][x][y].classList.add("ship");
-        });
+    tagSquare(boardId, x, y, tag) {
+        this.squares[boardId][x][y].classList.add(tag);
     }
 }
 
