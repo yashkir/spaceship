@@ -9,7 +9,10 @@ class Controller {
             return message;
         });
 
-        let handler = (...args) => this.clickHandler(...args);
+        let handler = (...args) => {
+            this.clickHandler(...args)
+        };
+
         [0, 1].forEach((n) => {
             this.renderer.createBoard(n, this.game.state.players[n].board.width,
                                          this.game.state.players[n].board.height, handler);
@@ -19,8 +22,9 @@ class Controller {
     }
 
     clickHandler(playerId, x, y) {
-        let shipId = 2;
-        this.game.commandHandler(`place ${playerId} ${x} ${y}`);
+        let shipId = 1;
+        console.log(this.game.commandHandler(`place ${playerId} ${shipId} ${x} ${y}`));
+        this.update();
     }
 
     update () {

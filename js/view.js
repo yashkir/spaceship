@@ -29,11 +29,10 @@ class HTMLView {
             targetElement.append(document.createElement("br"));
         }
 
-        targetElement.addEventListener("click", function(evt) {
+        targetElement.addEventListener("click", (evt) => {
             if (evt.target.classList.contains(SQUARE_CLASS)) {
                 let boardId, x, y;
                 [boardId, x, y] = evt.target.id.split('-');
-                console.log("clicked a square" + x);
                 this.clickHandler(boardId, x ,y);
             }
         });
