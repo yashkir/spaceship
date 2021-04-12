@@ -23,7 +23,7 @@ class Player {
 class Ship {
     constructor (size, position) {
         this.position = position;
-        switch (size) {
+        switch (parseInt(size)) {
             case 1:
                 this.parts = [[0, 0]];
                 break;
@@ -46,7 +46,7 @@ class SpaceShipGame {
     }
 
     placeShip (playerId, shipId, x, y) {
-        let ship = new Ship(shipId, [x, y]);
+        let ship = new Ship(shipId, [parseInt(x), parseInt(y)]);
         this.state.players[playerId].ships.push(ship);
         return `placed player ${playerId} ship ${shipId} at ${x}, ${y}`;
     }

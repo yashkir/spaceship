@@ -34,9 +34,11 @@ class Controller {
 
     renderShips(ships, playerNum) {
         ships.forEach(ship => {
-            let x = ship.position[0];
-            let y = ship.position[1];
-            this.renderer.tagSquare(playerNum, x, y, "ship");
+            for (let part of ship.parts) {
+                let x = ship.position[0] + part[0];
+                let y = ship.position[1] + part[1];
+                this.renderer.tagSquare(playerNum, x, y, "ship");
+            }
         });
     }
 }
