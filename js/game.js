@@ -7,6 +7,7 @@ class Board {
         for (let i = 0; i < this.squares.length; i++) {
             this.squares[i] = Array(height).fill(0);
         };
+        this.selectedSquares = [];
     }
 }
 
@@ -24,7 +25,7 @@ class Ship {
         this.position = position;
         switch (size) {
             case 1:
-                this.parts = [0, 0];
+                this.parts = [[0, 0]];
                 break;
             case 2:
                 this.parts = [[0, 0], [0, 1]];
@@ -50,13 +51,34 @@ class SpaceShipGame {
         return `placed player ${playerId} ship ${shipId} at ${x}, ${y}`;
     }
 
-    selectSquare (board, position) {
-       board.selectedSquares.push(position);
+    selectSquare (playerId, x, y) {
+        let board = this.state.players[playerId].board;
+        board.selectedSquares.push([x, y]);
+        return `selected player ${playerId} square at ${x}, ${y}`;
     }
 
-    clearSelection (board) {
-        board.selectedSquares = [];
+    clearSelection (playerId) {
+        this.state.players[playerId].board.selectedSquares = [];
+        return `cleared selection on player ${playerId} board`;
     }
+
+    resolveFire (targetId) {
+        let ships = this.state.players[targetId].ships;
+        let board = this.state.players[targetId].board;
+
+        for (let square of board.selectedSquares) {
+            for (let ship of ships) {
+                for (let part of ship.parts) { 
+                    let position = [part[0] + ship.position[0],
+                                    part[1] + ship.position[1]]
+                    if (square[0] == position[0] && square[1] == position[1]) {
+                        console.log("hit!");
+                    }
+                }
+            }
+        }
+        return `resolving fire phase on player ${targetId}`;
+    };
 
     commandHandler(command) {
         let c = command.split(" ");
@@ -66,13 +88,14 @@ class SpaceShipGame {
                 break;
             case "select":
                 //"select 1 5 6" selects player 1 square at [5,6]
-                this.selectSquare(this.state.players[c[1]].board, c[2][3]);
+                return this.selectSquare(c[1], c[2], c[3]);
                 break;
             case "clear":
                 //"clear 1" clears all selections on player 1's board
-                this.clearSelection(this.state.players[c[1]].board);
+                return this.clearSelection(c[1]);
                 break;
             case "fire":
+                return this.resolveFire(c[1]);
                 break;
             case "debug":
                 console.log("debugging");

@@ -8,21 +8,35 @@ class HTMLView {
         this.statusEl = document.getElementById("status-banner");
     }
 
-    createBoard(boardId, width, height) {
+    createBoard(boardId, width, height, clickHandler) {
+        this.clickHandler = clickHandler;
         this.squares[boardId] = Array(width);
         let targetElement = this.boards[boardId];
 
         for (let i = 0; i < width; i++) {
             this.squares[boardId][i] = Array(height);
+
             for (let j = 0; j < height; j++) {
                 let square = document.createElement("div");
-                square.classList.add(SQUARE_CLASS);
-                targetElement.append(square);
 
+                square.classList.add(SQUARE_CLASS);
+                square.id = `${boardId}-${i}-${j}`;
+
+                targetElement.append(square);
                 this.squares[boardId][i][j] = square;
             }
+
             targetElement.append(document.createElement("br"));
         }
+
+        targetElement.addEventListener("click", function(evt) {
+            if (evt.target.classList.contains(SQUARE_CLASS)) {
+                let boardId, x, y;
+                [boardId, x, y] = evt.target.id.split('-');
+                console.log("clicked a square" + x);
+                this.clickHandler(boardId, x ,y);
+            }
+        });
     }
 
     tagSquare(boardId, x, y, tag) {

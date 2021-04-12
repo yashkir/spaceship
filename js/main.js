@@ -9,12 +9,18 @@ class Controller {
             return message;
         });
 
-        this.renderer.createBoard(0, this.game.state.players[0].board.width,
-                                     this.game.state.players[0].board.height);
-        this.renderer.createBoard(1, this.game.state.players[1].board.width,
-                                     this.game.state.players[1].board.height);
+        let handler = (...args) => this.clickHandler(...args);
+        [0, 1].forEach((n) => {
+            this.renderer.createBoard(n, this.game.state.players[n].board.width,
+                                         this.game.state.players[n].board.height, handler);
+        });
 
         this.renderer.updateStatus("Place your ship...");
+    }
+
+    clickHandler(playerId, x, y) {
+        let shipId = 2;
+        this.game.commandHandler(`place ${playerId} ${x} ${y}`);
     }
 
     update () {
@@ -31,5 +37,13 @@ class Controller {
     }
 }
 
+
 let game = new SpaceShipGame();
 let controller = new Controller(game);
+
+// Test setup
+{
+    game.placeShip(0, 1, 2, 2);
+    game.placeShip(1, 1, 3, 2);
+    controller.update();
+}
