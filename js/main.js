@@ -22,14 +22,16 @@ class Controller {
     }
 
     clickHandler(playerId, x, y) {
-        let shipId = 1;
+        let shipId = 2;
         console.log(this.game.commandHandler(`place ${playerId} ${shipId} ${x} ${y}`));
         this.update();
     }
 
     update () {
-        this.renderShips(this.game.state.players[0].ships, 0);
-        this.renderShips(this.game.state.players[1].ships, 1);
+        for (let n of [0, 1]) {
+            this.renderShips(this.game.state.players[n].ships, n);
+            this.renderHits(this.game.state.players[n].board.hits, n);
+        }
     }
 
     renderShips(ships, playerNum) {
@@ -40,6 +42,14 @@ class Controller {
                 this.renderer.tagSquare(playerNum, x, y, "ship");
             }
         });
+    }
+
+    renderHits(hits, boardId) {
+        for (let hit of hits) {
+            let x = hit[0];
+            let y = hit[1];
+            this.renderer.tagSquare(boardId, x, y, "hit")
+        }
     }
 }
 

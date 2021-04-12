@@ -8,6 +8,7 @@ class Board {
             this.squares[i] = Array(height).fill(0);
         };
         this.selectedSquares = [];
+        this.hits = []
     }
 }
 
@@ -66,18 +67,21 @@ class SpaceShipGame {
         let ships = this.state.players[targetId].ships;
         let board = this.state.players[targetId].board;
 
+        let hitCount = 0;
+
         for (let square of board.selectedSquares) {
             for (let ship of ships) {
                 for (let part of ship.parts) { 
                     let position = [part[0] + ship.position[0],
                                     part[1] + ship.position[1]]
                     if (square[0] == position[0] && square[1] == position[1]) {
-                        console.log("hit!");
+                        board.hits.push(position);
+                        hitCount++;
                     }
                 }
             }
         }
-        return `resolving fire phase on player ${targetId}`;
+        return `resolving fire phase on player ${targetId}: ${hitCount} hits`;
     };
 
     commandHandler(command) {

@@ -69,3 +69,10 @@ div.square.ship {
   background-color: white;
 }
 
+div.square.hit {
+  background-color: red;
+}
+
+div.square.miss {
+  background-color: yellow;
+}
