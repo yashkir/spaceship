@@ -26,7 +26,17 @@ class Player {
         this.board = new Board();
         this.ships = []
         this.targetsSelected = [];
+        this.shipsToPlace = [3, 2, 1];
     }
+
+    peekNextShipToPlace () {
+        return this.shipsToPlace.length ? this.shipsToPlace[0]: null;
+    }
+
+    getNextShipToPlace () {
+        return this.shipsToPlace.shift();
+    }
+
 }
 
 class Ship {
@@ -39,9 +49,24 @@ class Ship {
             case 2:
                 this.parts = [[0, 0], [0, 1]];
                 break;
+            case 3:
+                this.parts = [[0, 0], [1, 0], [2, 0]];
+                break;
             default:
                 break;
         }
+    }
+}
+
+class Info {
+    constructor (game) {
+        this.game = game;
+    }
+
+    get nextShipToPlace () {
+        let currentPlayer = this.game.state.activePlayer;
+        let shipId = this.game.state.players[currentPlayer].peekNextShipToPlace();
+        return shipId;
     }
 }
 
@@ -52,9 +77,27 @@ class SpaceShipGame {
         this.state.activePlayer = 0;
         this.state.players = [new Player("human"), new Player("computer")];
         this.state.phase = PHASES.placement;
+        this.info = new Info(this);
     }
 
-    placeShip (playerId, shipId, x, y) {
+    update () {
+        switch (this.state.phase) {
+            case PHASES.placement:
+                if (this.info.nextShipToPlace == null) {
+                    this.state.phase = PHASES.targeting;
+                }
+                break;
+            case PHASES.targeting:
+                break;
+            case PHASES.firing:
+            case PHASES.maintenance:
+            default:
+                break
+        }
+    }
+
+    placeShip (playerId, x, y) {
+        let shipId = this.state.players[playerId].getNextShipToPlace();
         let ship = new Ship(shipId, [parseInt(x), parseInt(y)]);
         this.state.players[playerId].ships.push(ship);
         return `placed player ${playerId} ship ${shipId} at ${x}, ${y}`;

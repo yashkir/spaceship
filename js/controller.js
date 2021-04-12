@@ -22,10 +22,14 @@ class Controller {
     }
 
     clickHandler(playerId, x, y) {
-        let shipId = 2;
+        let currentPlayer = this.game.state.activePlayer;
+        let shipId = this.game.info.nextShipToPlace;
         switch (this.game.state.phase) {
             case PHASES.placement:
-                console.log(this.game.placeShip(playerId, shipId, x, y));
+                if (shipId == null) {
+                    break;
+                }
+                console.log(this.game.placeShip(currentPlayer, x, y));
                 break;
             case PHASES.targeting:
                 console.log(this.game.selectSquare(playerId, x, y));
@@ -37,9 +41,23 @@ class Controller {
     }
 
     update () {
+        this.game.update();
+
         for (let n of [0, 1]) {
             this.renderShips(this.game.state.players[n].ships, n);
             this.renderHits(this.game.state.players[n].board.hits, n);
+        }
+
+        switch (this.game.state.phase) {
+            case PHASES.placement:
+                let shipId = this.game.info.nextShipToPlace;
+                this.renderer.updateStatus(`Place your size ${shipId} ship...`);
+                break;
+            case PHASES.targeting:
+                this.renderer.updateStatus(`Select a target.`);
+                break;
+            default:
+                break;
         }
     }
 
