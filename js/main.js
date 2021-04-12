@@ -1,7 +1,7 @@
 class Controller {
     constructor (game) {
         this.game = game;
-        this.input = new Input(this.commandHandler);
+        this.input = new Input(command => game.commandHandler(command));
         this.renderer = new HTMLView();
 
         this.renderer.render();

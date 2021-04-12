@@ -82,6 +82,8 @@ class Input {
             commands[message]();
         }
 
-        this.dispatchTo(null, message);
+        let response = this.dispatchTo(message);
+        console.log(response);
+
     }
 }

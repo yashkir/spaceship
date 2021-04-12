@@ -42,17 +42,12 @@ class SpaceShipGame {
         this.state.activePlayer = 0;
         this.state.players = [new Player("human"), new Player("computer")];
         this.state.phase = 0;
-
-        this.placeShips(this.state.players[0]);
-        this.placeShips(this.state.players[1]);
-
     }
 
-    placeShips (player) {
-        let ship = new Ship(2, [2, 2]);
-        player.ships.push(ship);
-        ship = new Ship(2, [3, 2]);
-        player.ships.push(ship);
+    placeShip (playerId, shipId, x, y) {
+        let ship = new Ship(shipId, [x, y]);
+        this.state.players[playerId].ships.push(ship);
+        return `placed player ${playerId} ship ${shipId} at ${x}, ${y}`;
     }
 
     selectSquare (board, position) {
@@ -63,9 +58,12 @@ class SpaceShipGame {
         board.selectedSquares = [];
     }
 
-    commandHandler(player, command) {
-        let c = command.split(",");
+    commandHandler(command) {
+        let c = command.split(" ");
         switch(c[0]) {
+            case "place":
+                return this.placeShip(c[1], c[2], c[3], c[4]);
+                break;
             case "select":
                 //"select 1 5 6" selects player 1 square at [5,6]
                 this.selectSquare(this.state.players[c[1]].board, c[2][3]);
