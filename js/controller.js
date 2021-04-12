@@ -23,7 +23,16 @@ class Controller {
 
     clickHandler(playerId, x, y) {
         let shipId = 2;
-        console.log(this.game.commandHandler(`place ${playerId} ${shipId} ${x} ${y}`));
+        switch (this.game.state.phase) {
+            case PHASES.placement:
+                console.log(this.game.placeShip(playerId, shipId, x, y));
+                break;
+            case PHASES.targeting:
+                console.log(this.game.selectSquare(playerId, x, y));
+                break;
+            case PHASES.firing:
+            case PHASES.maintenance:
+        }
         this.update();
     }
 

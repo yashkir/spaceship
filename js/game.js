@@ -1,3 +1,11 @@
+const PHASES = {
+    pre_game: 'pre_game',
+    placement: 'placement',
+    targeting: 'targeting', 
+    firing: 'firing',
+    maintenance: 'maintenance',
+}
+
 // --- MODEL --------------------------
 class Board {
     constructor (width = 10, height = 10) {
@@ -43,7 +51,7 @@ class SpaceShipGame {
         this.state = {};
         this.state.activePlayer = 0;
         this.state.players = [new Player("human"), new Player("computer")];
-        this.state.phase = 0;
+        this.state.phase = PHASES.placement;
     }
 
     placeShip (playerId, shipId, x, y) {
