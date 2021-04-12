@@ -13,6 +13,8 @@ class Controller {
                                      this.game.state.players[0].board.height);
         this.renderer.createBoard(1, this.game.state.players[1].board.width,
                                      this.game.state.players[1].board.height);
+
+        this.renderer.updateStatus("Place your ship...");
     }
 
     update () {

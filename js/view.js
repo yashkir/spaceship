@@ -5,6 +5,7 @@ class HTMLView {
         this.boards = [document.getElementById("board1"),
                        document.getElementById("board2")];
         this.squares = [];
+        this.statusEl = document.getElementById("status-banner");
     }
 
     createBoard(boardId, width, height) {
@@ -26,6 +27,10 @@ class HTMLView {
 
     tagSquare(boardId, x, y, tag) {
         this.squares[boardId][x][y].classList.add(tag);
+    }
+
+    updateStatus(message) {
+        this.statusEl.innerHTML = message;
     }
 }
 
