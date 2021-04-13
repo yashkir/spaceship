@@ -153,6 +153,10 @@ class SpaceShipGame {
         return `resolving fire phase on player ${targetId}: ${hitCount} hits`;
     };
 
+    activePlayerIsHuman() {
+        return this.state.players[this.state.activePlayer].isHuman;
+    }
+
     canPlayerSelectMore (playerId) {
         let player = this.state.players[playerId];
         let target = this.state.players[player.targetPlayerId];

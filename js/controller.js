@@ -22,6 +22,10 @@ class Controller {
     }
 
     buttonClickHandler(playerId, button) {
+        if (!game.activePlayerIsHuman()) {
+            return;
+        }
+
         if (button == "fire" && this.game.state.phase == PHASES.targeting) {
             let targetId = game.state.players[playerId].targetPlayerId;
             console.log(this.game.resolveFire(targetId));
@@ -32,6 +36,10 @@ class Controller {
     }
 
     boardClickHandler(playerId, x, y) {
+        if (!game.activePlayerIsHuman()) {
+            return;
+        }
+
         let currentPlayer = this.game.state.activePlayer;
         let shipId = this.game.info.nextShipToPlace;
         switch (this.game.state.phase) {
