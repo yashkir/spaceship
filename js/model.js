@@ -31,6 +31,7 @@ class Player {
         this.targetPlayerId = targetPlayerId;
         this.maxShots = 1;
         this.shipsToPlace = [3, 2, 1];
+        this.totalShipSquares = 0;
     }
 
     peekNextShipToPlace () {
@@ -45,6 +46,7 @@ class Player {
 
 class Ship {
     constructor (size, position) {
+        this.size = size;
         this.position = position;
         switch (parseInt(size)) {
             case 1:
@@ -65,6 +67,7 @@ class Ship {
 class State {
     constructor () {
         this.activePlayer = 0;
+        this.losingPlayer = null;
         this.players = [new Player("human", 1), new Player("computer", 0)];
         this.phase = PHASES.placement;
         this.players[1].ai = new Computer(BOARD_SIZE);

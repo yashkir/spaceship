@@ -72,6 +72,12 @@ class Controller {
             this.renderAttacks(this.game.state.players[n].board.attacks, n);
         }
 
+        if (game.state.losingPlayer) {
+            // TODO allow for a restart
+            this.renderer.updateStatus(`Player ${game.state.losingPlayer.name} has LOST!`);
+            return;
+        }
+
         let isHuman = game.state.players[game.state.activePlayer].isHuman;
 
         switch (this.game.state.phase) {
