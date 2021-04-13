@@ -61,32 +61,23 @@ class Ship {
     }
 }
 
-class Info {
-    constructor (game) {
-        this.game = game;
-    }
-
-    get nextShipToPlace () {
-        let currentPlayer = this.game.state.activePlayer;
-        let shipId = this.game.state.players[currentPlayer].peekNextShipToPlace();
-        return shipId;
+class State {
+    constructor () {
+        this.activePlayer = 0;
+        this.players = [new Player("human", 1), new Player("computer", 0)];
+        this.phase = PHASES.placement;
     }
 }
 
-// --- CONTROLLER ---------------------
 class SpaceShipGame {
     constructor () {
-        this.state = {};
-        this.state.activePlayer = 0;
-        this.state.players = [new Player("human", 1), new Player("computer", 0)];
-        this.state.phase = PHASES.placement;
-        this.info = new Info(this);
+        this.state = new State();
     }
 
     update () {
         switch (this.state.phase) {
             case PHASES.placement:
-                if (this.info.nextShipToPlace == null) {
+                if (this.nextShipToPlace == null) {
                     this.state.phase = PHASES.targeting;
                 }
                 break;
@@ -155,6 +146,12 @@ class SpaceShipGame {
 
     activePlayerIsHuman() {
         return this.state.players[this.state.activePlayer].isHuman;
+    }
+
+    get nextShipToPlace () {
+        let currentPlayer = this.state.activePlayer;
+        let shipId = this.state.players[currentPlayer].peekNextShipToPlace();
+        return shipId;
     }
 
     canPlayerSelectMore (playerId) {

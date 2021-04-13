@@ -41,7 +41,7 @@ class Controller {
         }
 
         let currentPlayer = this.game.state.activePlayer;
-        let shipId = this.game.info.nextShipToPlace;
+        let shipId = this.game.nextShipToPlace;
         switch (this.game.state.phase) {
             case PHASES.placement:
                 if (shipId == null) {
@@ -75,7 +75,7 @@ class Controller {
         switch (this.game.state.phase) {
             case PHASES.placement:
                 if (isHuman) {
-                    let shipId = this.game.info.nextShipToPlace;
+                    let shipId = this.game.nextShipToPlace;
                     this.renderer.updateStatus(`Place your size ${shipId} ship...`);
                 } else {
                     this.renderer.updateStatus(`Computer is placing ships`);
