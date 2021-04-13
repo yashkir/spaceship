@@ -18,7 +18,7 @@ class Controller {
                                          this.game.state.players[n].board.height, handler);
         });
 
-        this.renderer.updateStatus("Place your ship...");
+        this.update();
     }
 
     clickHandler(playerId, x, y) {
