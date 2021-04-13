@@ -23,7 +23,9 @@ class Controller {
 
     buttonClickHandler(playerId, button) {
         if (button == "fire" && this.game.state.phase == PHASES.targeting) {
-            console.log(this.game.resolveFire(game.state.players[playerId].targetPlayerId));
+            let targetId = game.state.players[playerId].targetPlayerId;
+            console.log(this.game.resolveFire(targetId));
+            this.renderer.convertSquareTags(targetId, "target", "attacked");
         }
 
         this.update();
@@ -40,7 +42,10 @@ class Controller {
                 console.log(this.game.placeShip(currentPlayer, x, y));
                 break;
             case PHASES.targeting:
-                console.log(this.game.selectSquare(playerId, x, y));
+                if (this.game.canPlayerSelectMore(currentPlayer)) {
+                    console.log(this.game.selectSquare(playerId, x, y));
+                    this.renderer.tagSquare(playerId, x, y, "target");
+                }
                 break;
             case PHASES.firing:
             case PHASES.maintenance:

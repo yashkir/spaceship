@@ -76,13 +76,21 @@ div.square.ship {
   background-color: white;
 }
 
+div.square.target {
+  border-color: green;
+  border-width: 5px;
+  border-style: dashed;
+}
+
+div.square.attacked {
+  background-color: black;
+  border-radius: 10px;
+}
+
 div.square.hit {
   background-color: red;
 }
 
-div.square.miss {
-  background-color: yellow;
-}
 
 div.controls {
   margin: 10px;

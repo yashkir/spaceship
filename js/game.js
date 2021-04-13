@@ -142,6 +142,15 @@ class SpaceShipGame {
         return `resolving fire phase on player ${targetId}: ${hitCount} hits`;
     };
 
+    canPlayerSelectMore (playerId) {
+        let player = this.state.players[playerId];
+        let target = this.state.players[player.targetPlayerId];
+
+        if (target.board.selectedSquares.length < player.maxShots) {
+            return true;
+        }
+    }
+
     commandHandler(command) {
         let c = command.split(" ");
         switch(c[0]) {

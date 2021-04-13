@@ -56,6 +56,18 @@ class HTMLView {
         this.squares[boardId][x][y].classList.add(tag);
     }
 
+    convertSquareTags(boardId, tagFrom, tagTo) {
+        for (let row of this.squares[boardId]) {
+            for (let square of row) {
+                if (square.classList.contains(tagFrom)) {
+                    square.classList.remove(tagFrom);
+                    square.classList.add(tagTo);
+                }
+            }
+        }
+    }
+
+
     updateStatus(message) {
         this.statusEl.innerHTML = message;
     }
