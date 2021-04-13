@@ -6,6 +6,20 @@ class HTMLView {
                        document.getElementById("board2")];
         this.squares = [];
         this.statusEl = document.getElementById("status-banner");
+
+        this.buttons = document.getElementById("p1-controls");
+    }
+
+    attachHandlers(buttonClickHandler) {
+        this.buttons.addEventListener("click", (evt) => {
+            if (evt.target.classList.contains("controls") &&
+                evt.target.tagName == "BUTTON") 
+            {
+                //FIX currently hard coded to player 1
+                //we are just slicing off the 'p1-' of the id
+                buttonClickHandler(0, evt.target.id.slice(3));
+            }
+        });
     }
 
     createBoard(boardId, width, height, clickHandler) {

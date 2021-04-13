@@ -21,11 +21,13 @@ class Board {
 }
 
 class Player {
-    constructor (name) {
+    constructor (name, targetPlayerId) {
         this.name = name;
         this.board = new Board();
         this.ships = []
         this.targetsSelected = [];
+        this.targetPlayerId = targetPlayerId;
+        this.maxShots = 1;
         this.shipsToPlace = [3, 2, 1];
     }
 
@@ -75,7 +77,7 @@ class SpaceShipGame {
     constructor () {
         this.state = {};
         this.state.activePlayer = 0;
-        this.state.players = [new Player("human"), new Player("computer")];
+        this.state.players = [new Player("human", 1), new Player("computer", 0)];
         this.state.phase = PHASES.placement;
         this.info = new Info(this);
     }
@@ -105,8 +107,13 @@ class SpaceShipGame {
 
     selectSquare (playerId, x, y) {
         let board = this.state.players[playerId].board;
-        board.selectedSquares.push([x, y]);
-        return `selected player ${playerId} square at ${x}, ${y}`;
+
+        if (board.selectedSquares.length >= this.state.players[playerId].maxShots) {
+            return `maximum targets selected`;
+        } else {
+            board.selectedSquares.push([x, y]);
+            return `selected player ${playerId} square at ${x}, ${y}`;
+        }
     }
 
     clearSelection (playerId) {

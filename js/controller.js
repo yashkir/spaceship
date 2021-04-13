@@ -9,19 +9,27 @@ class Controller {
             return message;
         });
 
-        let handler = (...args) => {
-            this.clickHandler(...args)
-        };
 
         [0, 1].forEach((n) => {
             this.renderer.createBoard(n, this.game.state.players[n].board.width,
-                                         this.game.state.players[n].board.height, handler);
+                                         this.game.state.players[n].board.height,
+                                         this.boardClickHandler.bind(this));
         });
+
+        this.renderer.attachHandlers(this.buttonClickHandler.bind(this))
 
         this.update();
     }
 
-    clickHandler(playerId, x, y) {
+    buttonClickHandler(playerId, button) {
+        if (button == "fire" && this.game.state.phase == PHASES.targeting) {
+            console.log(this.game.resolveFire(game.state.players[playerId].targetPlayerId));
+        }
+
+        this.update();
+    }
+
+    boardClickHandler(playerId, x, y) {
         let currentPlayer = this.game.state.activePlayer;
         let shipId = this.game.info.nextShipToPlace;
         switch (this.game.state.phase) {
