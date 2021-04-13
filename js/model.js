@@ -48,15 +48,19 @@ class Ship {
     constructor (size, position) {
         this.size = size;
         this.position = position;
+        this.isAlive = true;
         switch (parseInt(size)) {
             case 1:
+                this.name = "Fighter";
                 this.parts = [[0, 0]];
                 break;
             case 2:
+                this.name = "Cruiser";
                 this.parts = [[0, 0], [0, 1]];
                 break;
             case 3:
                 this.parts = [[0, 0], [1, 0], [2, 0]];
+                this.name = "Battleship";
                 break;
             default:
                 break;

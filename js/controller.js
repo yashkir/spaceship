@@ -69,6 +69,7 @@ class Controller {
         this.game.update();
 
         for (let n of [0, 1]) {
+            this.renderShipStatuses(this.game.state.players[n].ships, n);
             this.renderShips(this.game.state.players[n].ships, n);
             this.renderHits(this.game.state.players[n].board.hits, n);
             this.renderAttacks(this.game.state.players[n].board.attacks, n);
@@ -101,6 +102,14 @@ class Controller {
             default:
                 break;
         }
+    }
+    
+    renderShipStatuses (ships, playerNum) {
+        let statuses = [];
+        for (let ship of ships) {
+            statuses.push(`${ship.name}: ${ship.isAlive ? 'alive' : 'dead'}`);
+        }
+        this.renderer.setShipStatus(playerNum, statuses);
     }
 
     renderShips(ships, playerNum) {

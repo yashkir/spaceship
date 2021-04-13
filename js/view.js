@@ -10,6 +10,8 @@ class HTMLView {
         this.buttons = document.getElementById("p1-controls");
         this.playerNames = [document.getElementById("p1-name"),
                             document.getElementById("p2-name")];
+        this.shipStatuses = [document.getElementById("p1-ships"),
+                            document.getElementById("p2-ships")];
     }
 
     attachHandlers(buttonClickHandler) {
@@ -56,6 +58,14 @@ class HTMLView {
 
     setNames(names) {
         [0, 1].forEach(i => this.playerNames[i].textContent = names[i]);
+    }
+
+    setShipStatus(playerId, statuses) {
+        this.shipStatuses[playerId].innerHTML = "";
+
+        for (status of statuses) {
+            this.shipStatuses[playerId].innerHTML += status + '<br>';
+        }
     }
 
     tagSquare(boardId, x, y, tag) {
