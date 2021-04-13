@@ -96,6 +96,10 @@ class Controller {
     }
 
     renderShips(ships, playerNum) {
+        if (!game.state.players[playerNum].isHuman) {
+            return;
+        }
+
         ships.forEach(ship => {
             for (let part of ship.parts) {
                 let x = ship.position[0] + part[0];
