@@ -61,10 +61,9 @@ div#bottom-section {
 }
 
 div#command-history {
-  background: darkgreen;
   font-family: monospace;
   height: 100px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 div.square {

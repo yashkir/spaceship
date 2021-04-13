@@ -2,9 +2,8 @@ class Controller {
     constructor (game) {
         this.game = game;
         this.renderer = new HTMLView();
-        this.console = new Console(command => { 
+        this.prompt = new CommandPrompt(command => { 
             let message = game.commandHandler(command)
-            // Update the view on every input
             this.update()
             return message;
         });
