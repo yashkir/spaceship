@@ -23,6 +23,7 @@ class Board {
 class Player {
     constructor (name, targetPlayerId) {
         this.name = name;
+        this.isHuman = name === "computer" ? false : true;
         this.board = new Board();
         this.ships = []
         this.targetsSelected = [];

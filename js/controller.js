@@ -50,6 +50,7 @@ class Controller {
             case PHASES.firing:
             case PHASES.maintenance:
         }
+
         this.update();
     }
 
@@ -61,13 +62,23 @@ class Controller {
             this.renderHits(this.game.state.players[n].board.hits, n);
         }
 
+        let isHuman = game.state.players[game.state.activePlayer].isHuman;
+
         switch (this.game.state.phase) {
             case PHASES.placement:
-                let shipId = this.game.info.nextShipToPlace;
-                this.renderer.updateStatus(`Place your size ${shipId} ship...`);
+                if (isHuman) {
+                    let shipId = this.game.info.nextShipToPlace;
+                    this.renderer.updateStatus(`Place your size ${shipId} ship...`);
+                } else {
+                    this.renderer.updateStatus(`Computer is placing ships`);
+                }
                 break;
             case PHASES.targeting:
-                this.renderer.updateStatus(`Select a target.`);
+                if (isHuman) {
+                    this.renderer.updateStatus(`Select a target.`);
+                } else {
+                    this.renderer.updateStatus(`Computer is selecting targets...`);
+                }
                 break;
             default:
                 break;
