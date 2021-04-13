@@ -59,6 +59,7 @@ class Controller {
             case PHASES.maintenance:
         }
 
+        this.game.update();
         this.update();
     }
 
@@ -68,6 +69,7 @@ class Controller {
         for (let n of [0, 1]) {
             this.renderShips(this.game.state.players[n].ships, n);
             this.renderHits(this.game.state.players[n].board.hits, n);
+            this.renderAttacks(this.game.state.players[n].board.attacks, n);
         }
 
         let isHuman = game.state.players[game.state.activePlayer].isHuman;
@@ -108,6 +110,14 @@ class Controller {
             let x = hit[0];
             let y = hit[1];
             this.renderer.tagSquare(boardId, x, y, "hit")
+        }
+    }
+
+    renderAttacks(attacks, boardId) {
+        for (let attack of attacks) {
+            let x = attack[0];
+            let y = attack[1];
+            this.renderer.tagSquare(boardId, x, y, "attacked")
         }
     }
 }

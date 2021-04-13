@@ -19,9 +19,19 @@ class SpaceShipGame {
                 //FIX below is a hack to clear targets as player is cycled
                 this.state.players[this.state.activePlayer].board.selectedSquares = [];
                 this.state.phase = PHASES.targeting;
+                if (!this.activePlayerIsHuman()) {
+                    console.log(this.selectSquare(0, ...this.activePlayer.ai.randomSquare()));
+                    console.log(this.resolveFire(0));
+                    this.state.phase = PHASES.maintenance;
+                    this.update();
+                }
             default:
                 break
         }
+    }
+
+    get activePlayer () {
+        return this.state.players[this.state.activePlayer];
     }
 
     placeShip (playerId, x, y) {
@@ -56,6 +66,7 @@ class SpaceShipGame {
         let hitCount = 0;
 
         for (let square of board.selectedSquares) {
+            board.attacks.push(square);
             for (let ship of ships) {
                 for (let part of ship.parts) { 
                     let position = [part[0] + ship.position[0],

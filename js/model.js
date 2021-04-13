@@ -1,3 +1,4 @@
+const BOARD_SIZE = [10, 10];
 const PHASES = {
     pre_game: 'pre_game',
     placement: 'placement',
@@ -7,15 +8,16 @@ const PHASES = {
 }
 
 class Board {
-    constructor (width = 10, height = 10) {
-        this.width = width;
-        this.height = height;
-        this.squares = new Array(width);
+    constructor () {
+        this.width = BOARD_SIZE[0];
+        this.height = BOARD_SIZE[1];
+        this.squares = new Array(this.width);
         for (let i = 0; i < this.squares.length; i++) {
-            this.squares[i] = Array(height).fill(0);
+            this.squares[i] = Array(this.height).fill(0);
         };
         this.selectedSquares = [];
         this.hits = []
+        this.attacks = [];
     }
 }
 
@@ -65,5 +67,6 @@ class State {
         this.activePlayer = 0;
         this.players = [new Player("human", 1), new Player("computer", 0)];
         this.phase = PHASES.placement;
+        this.players[1].ai = new Computer(BOARD_SIZE);
     }
 }
