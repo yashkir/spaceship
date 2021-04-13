@@ -2,7 +2,7 @@ class Controller {
     constructor (game) {
         this.game = game;
         this.renderer = new HTMLView();
-        this.input = new Input(command => { 
+        this.console = new Console(command => { 
             let message = game.commandHandler(command)
             // Update the view on every input
             this.update()
