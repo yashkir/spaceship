@@ -93,6 +93,9 @@ class SpaceShipGame {
                 break;
             case PHASES.firing:
             case PHASES.maintenance:
+                //FIX only for two players
+                this.state.activePlayer = ++this.state.activePlayer % 2;
+                this.state.phase = PHASES.targeting;
             default:
                 break
         }
@@ -122,6 +125,8 @@ class SpaceShipGame {
     }
 
     resolveFire (targetId) {
+        this.state.phase = PHASES.firing;
+
         let ships = this.state.players[targetId].ships;
         let board = this.state.players[targetId].board;
 
@@ -139,6 +144,9 @@ class SpaceShipGame {
                 }
             }
         }
+
+        this.state.phase = PHASES.maintenance;
+
         return `resolving fire phase on player ${targetId}: ${hitCount} hits`;
     };
 
