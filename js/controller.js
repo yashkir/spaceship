@@ -16,6 +16,9 @@ class Controller {
                                          this.boardClickHandler.bind(this));
         });
 
+        this.renderer.setNames([this.game.state.players[0].name,
+                                this.game.state.players[1].name]);
+
         this.renderer.attachHandlers(this.buttonClickHandler.bind(this))
 
         this.update();

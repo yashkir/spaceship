@@ -8,6 +8,8 @@ class HTMLView {
         this.statusEl = document.getElementById("status-banner");
 
         this.buttons = document.getElementById("p1-controls");
+        this.playerNames = [document.getElementById("p1-name"),
+                            document.getElementById("p2-name")];
     }
 
     attachHandlers(buttonClickHandler) {
@@ -50,6 +52,10 @@ class HTMLView {
                 this.clickHandler(boardId, x ,y);
             }
         });
+    }
+
+    setNames(names) {
+        [0, 1].forEach(i => this.playerNames[i].textContent = names[i]);
     }
 
     tagSquare(boardId, x, y, tag) {
