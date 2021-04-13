@@ -96,6 +96,8 @@ class SpaceShipGame {
             case PHASES.maintenance:
                 //FIX only for two players
                 this.state.activePlayer = ++this.state.activePlayer % 2;
+                //FIX below is a hack to clear targets as player is cycled
+                this.state.players[this.state.activePlayer].board.selectedSquares = [];
                 this.state.phase = PHASES.targeting;
             default:
                 break
