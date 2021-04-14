@@ -108,6 +108,11 @@ class SpaceShipGame {
             }
         }
 
+        //TODO only works for single shots
+        if (!this.activePlayerIsHuman() && hitCount > 0) {
+            this.state.activePlayer.ai.informLastTargetWasHit();
+        }
+
         this.state.phase = PHASES.maintenance;
 
         return `resolving fire phase on player ${targetId}: ${hitCount} hits`;

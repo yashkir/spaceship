@@ -9,11 +9,48 @@ class Computer {
             }
         }
 
+        this.history = [];
+        this.plan = [];
+        this.lastHit;
     }
 
     getTarget() {
-        return this.possibleAttacks.splice(
-            Math.floor(Math.random() * this.possibleAttacks.length), 1)[0];
+        let target = null;
+
+        // If we got a hit, make a plan to explore around it
+        if (this.lastHit == true) {
+            let [x, y] = this.history[this.history.length - 1];
+
+            // TODO do the possibleAttack checking here
+            this.plan.push([x, y - 1],
+                 [x - 1, y]    ,     [x + 1, y],
+                           [x, y + 1]);
+        }
+
+        // If we have a plan, use it
+        while (this.plan.length > 0) {
+            target = this.plan.splice(getRndInt(0, this.plan.length), 1)[0];
+            let idx = findPointInList(target, this.possibleAttacks)
+
+            if (idx != -1) {
+                this.possibleAttacks.splice(idx, 1);
+                break;
+            }
+        }
+
+        // Otherwise pick a random square
+        if (!target) {
+            target = this.possibleAttacks.splice(getRndInt(0, this.possibleAttacks.length), 1)[0];
+        }
+
+        this.history.push(target);
+        this.lastHit = false;
+
+        return target;
+    }
+
+    informLastTargetWasHit() {
+        this.lastHit = true;
     }
 
     randomSquare () {
