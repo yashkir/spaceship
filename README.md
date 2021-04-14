@@ -6,7 +6,7 @@ A battleship game set in space.
 Screenshots
 -----------
 
-TODO
+![https://imgur.com/OJK7aOT.png](https://imgur.com/OJK7aOT.png)
 
 Architecture
 ------------
