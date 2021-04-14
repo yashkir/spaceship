@@ -83,7 +83,7 @@ class Controller {
             return;
         }
 
-        let isHuman = game.state.players[game.state.activePlayerId].isHuman;
+        let isHuman = game.state.activePlayer.isHuman;
 
         switch (this.game.state.phase) {
             case PHASES.placement:
@@ -96,7 +96,7 @@ class Controller {
                 break;
             case PHASES.targeting:
                 if (isHuman) {
-                    this.renderer.updateStatus(`Select a target.`);
+                    this.renderer.updateStatus(`Select a target and click FIRE.`);
                 } else {
                     this.renderer.updateStatus(`Computer is selecting targets...`);
                 }

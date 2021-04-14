@@ -28,7 +28,7 @@ class SpaceShipGame {
                 }
                 this.state.activePlayerId = ++this.state.activePlayerId % 2;
                 //FIX below is a hack to clear targets as player is cycled
-                this.state.players[this.state.activePlayerId].board.selectedSquares = [];
+                this.state.activePlayer.board.selectedSquares = [];
                 this.state.phase = PHASES.targeting;
                 if (!this.activePlayerIsHuman()) {
                     console.log(this.selectSquare(0, ...this.state.activePlayer.ai.randomSquare()));
@@ -93,7 +93,7 @@ class SpaceShipGame {
     };
 
     activePlayerIsHuman() {
-        return this.state.players[this.state.activePlayerId].isHuman;
+        return this.state.activePlayer.isHuman;
     }
 
     get nextShipToPlace () {
