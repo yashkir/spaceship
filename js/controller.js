@@ -107,7 +107,8 @@ class Controller {
     renderShipStatuses (ships, playerNum) {
         let statuses = [];
         for (let ship of ships) {
-            statuses.push(`${ship.name}: ${ship.isAlive ? 'alive' : 'dead'}`);
+            status = `${ship.name} ${!ship.isAlive ? '(dead)': ''}`;
+            statuses.push(status);
         }
         this.renderer.setShipStatus(playerNum, statuses);
     }
