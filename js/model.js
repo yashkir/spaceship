@@ -67,6 +67,16 @@ class Ship {
         }
     }
 
+    get partPositions () {
+        let positions = [];
+
+        for (const part of this.parts) {
+            positions.push([this.position[0] + part[0], this.position[1] + part[1]]);
+        }
+
+        return positions;
+    }
+
     get isAlive () {
         return this.hits < this.size;
     }

@@ -42,10 +42,25 @@ class SpaceShipGame {
     }
 
     placeShip (playerId, x, y) {
-        let shipId = this.state.players[playerId].getNextShipToPlace();
+        let valid = true;
+        let player = this.state.players[playerId];
+        let shipId = player.peekNextShipToPlace();
         let ship = new Ship(shipId, [parseInt(x), parseInt(y)]);
-        this.state.players[playerId].ships.push(ship);
-        return `placed player ${playerId} ship ${shipId} at ${x}, ${y}`;
+        for (const position of ship.partPositions) {
+            if (position[0] >= player.board.width ||
+                position[1] >= player.board.height)
+            {
+                valid = false;
+            }
+        }
+
+        if (valid) {
+            player.ships.push(ship);
+            player.getNextShipToPlace();
+            return `placed player ${playerId} ship ${shipId} at ${x}, ${y}`;
+        } else {
+            return `invalid placement, try again`;
+        }
     }
 
     selectSquare (playerId, x, y) {
