@@ -24,7 +24,8 @@ class Controller {
     }
 
     buttonClickHandler(playerId, button) {
-        if (!game.activePlayerIsHuman()) {
+        if (!game.activePlayerIsHuman() ||
+            game.state.phase == PHASES.end) {
             return;
         }
 
@@ -38,7 +39,8 @@ class Controller {
     }
 
     boardClickHandler(playerId, x, y) {
-        if (!game.activePlayerIsHuman()) {
+        if (!game.activePlayerIsHuman() ||
+            game.state.phase == PHASES.end) {
             return;
         }
 

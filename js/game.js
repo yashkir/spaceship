@@ -4,6 +4,15 @@ class SpaceShipGame {
     }
 
     update () {
+        //FIX only for two players
+        for (let player of this.state.players) {
+            if (player.board.hits.length >= player.totalShipSquares) {
+                this.state.losingPlayer = player;
+                this.state.phase = PHASES.end;
+                break;
+            }
+        }
+
         switch (this.state.phase) {
             case PHASES.placement:
                 if (this.nextShipToPlace == null) {
@@ -20,12 +29,6 @@ class SpaceShipGame {
                 break;
             case PHASES.firing:
             case PHASES.maintenance:
-                //FIX only for two players
-                for (let player of this.state.players) {
-                    if (player.board.hits.length >= player.totalShipSquares) {
-                        this.state.losingPlayerId = player;
-                    }
-                }
                 this.state.activePlayerId = ++this.state.activePlayerId % 2;
                 //FIX below is a hack to clear targets as player is cycled
                 this.state.activePlayer.board.selectedSquares = [];

@@ -5,6 +5,7 @@ const PHASES = {
     targeting: 'targeting', 
     firing: 'firing',
     maintenance: 'maintenance',
+    end: 'end',
 }
 
 class Board {
@@ -85,7 +86,7 @@ class Ship {
 class State {
     constructor () {
         this.activePlayerId = 0;
-        this.losingPlayerId = null;
+        this.losingPlayer = null;
         this.players = [new Player("human", 1), new Player("computer", 0)];
         this.phase = PHASES.placement;
         this.players[1].ai = new Computer(BOARD_SIZE);
