@@ -1,14 +1,23 @@
+:root {
+  --medium-blue: #0500c7ff;
+  --english-vermillion: #d64045ff;
+  --light-cyan: #e9fff9ff;
+  --powder-blue: #9ed8dbff;
+  --carrot-orange: #f18f01ff;
+}
+
 * {
   box-sizing: border-box;
-  color: white;
+  color: var(--light-cyan);
 }
 
-body, button, input {
-  background: #111111;
+button {
+  background-color: black;
 }
 
-div#middle-section, div#bottom-section {
-  margin: 5px;
+body {
+  background-color: black;
+  background-image: url("../img/stars.jpg");
 }
 
 div#game {
@@ -26,26 +35,39 @@ div#middle-section {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  min-height: 200px;
 }
 
 div#boards {
   display: flex;
   justify-content: space-between;
-  text-align:center;
-  margin: 10px 10px;
-  min-width: 300px;
-}
-
-div#boards, div#p1-info, div#p2-info, div#game-log, div#legend {
-  padding: 10px;
-  border: 4px solid navy;
-  border-radius: 5px;
+  text-align: center;
+  margin: 10px;
 }
 
 .player-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: black;
   text-align: center;
-  min-width: 150px;
+  line-height: 1.3em;
+  border: 4px solid black;
+  border-radius: 10px;
+  min-width: 160px;
+}
+
+.player-info .ships {
+  text-align: left;
+  margin-left: 0.5em;
+}
+
+div.name {
+  font-family:'Courier New', Courier, monospace;
+  background-color: var(--medium-blue);
+  border-radius: 10px;
+  font-size: 26px;
+  margin-bottom: 20px;
+  padding: 10px;
 }
 
 div#status-banner {
@@ -68,33 +90,31 @@ div#command-history {
 
 div.square {
   display: inline-block;
-  background-color: blue;
+  background-color: var(--medium-blue);
   border-radius: 2px;
-  margin: 0px;
   width: 20px;
   height: 20px;
   margin: 1px;
 }
 
 div.square.ship {
-  background-color: white;
+  background-color: var(--light-cyan);
 }
 
 div.square.target {
-  border-color: green;
+  border-color: var(--carrot-orange);
   border-width: 5px;
   border-style: dashed;
 }
 
 div.square.attacked {
-  background-color: black;
+  background-color: transparent;
   border-radius: 10px;
 }
 
 div.square.hit {
-  background-color: red;
+  background-color: var(--english-vermillion);
 }
-
 
 div.controls {
   margin: 10px;
@@ -103,6 +123,7 @@ div.controls {
 }
 
 div.board {
+  line-height: 10px;
   margin: 10px;
 }
 
@@ -113,7 +134,7 @@ button.controls {
 }
 
 button#p1-fire {
-  background: red;
+  background: var(--english-vermillion);
 }
 
 @media only screen and (max-width: 900px) {

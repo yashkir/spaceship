@@ -12,7 +12,7 @@ Architecture
 ------------
 JavaScript, HTML, CSS
 
-Gettin Started
+Getting Started
 --------------
 * Click the board to place your ships.
 * Click the computer's board to select your target.
@@ -25,3 +25,10 @@ Planned Features
 * multiplayer (online)
 * sound
 * save game state
+
+Assets Used
+-----------
+
+|Asset|Source|License|
+|-----|------|-------|
+|stars.jpg|[opengameart.org](https://opengameart.org/content/space-background-1)|WTFPL|
