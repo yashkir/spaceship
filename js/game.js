@@ -34,7 +34,7 @@ class SpaceShipGame {
                 this.state.activePlayer.board.selectedSquares = [];
                 this.state.phase = PHASES.targeting;
                 if (!this.activePlayerIsHuman()) {
-                    console.log(this.selectSquare(0, ...this.state.activePlayer.ai.randomSquare()));
+                    console.log(this.selectSquare(0, ...this.state.activePlayer.ai.getTarget()));
                     console.log(this.resolveFire(0));
                     this.state.phase = PHASES.maintenance;
                     this.update();
