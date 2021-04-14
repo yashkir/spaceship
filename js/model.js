@@ -48,7 +48,7 @@ class Ship {
     constructor (size, position) {
         this.size = size;
         this.position = position;
-        this.isAlive = true;
+        this.hits = 0;
         switch (parseInt(size)) {
             case 1:
                 this.name = "Fighter";
@@ -65,6 +65,10 @@ class Ship {
             default:
                 break;
         }
+    }
+
+    get isAlive () {
+        return this.hits < this.size;
     }
 }
 

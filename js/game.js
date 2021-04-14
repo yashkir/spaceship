@@ -84,6 +84,7 @@ class SpaceShipGame {
                                     part[1] + ship.position[1]]
                     if (square[0] == position[0] && square[1] == position[1]) {
                         board.hits.push(position);
+                        ship.hits++;
                         hitCount++;
                     }
                 }
