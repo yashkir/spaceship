@@ -23,15 +23,15 @@ class SpaceShipGame {
                 //FIX only for two players
                 for (let player of this.state.players) {
                     if (player.board.hits.length >= player.totalShipSquares) {
-                        this.state.losingPlayer = player;
+                        this.state.losingPlayerId = player;
                     }
                 }
-                this.state.activePlayer = ++this.state.activePlayer % 2;
+                this.state.activePlayerId = ++this.state.activePlayerId % 2;
                 //FIX below is a hack to clear targets as player is cycled
-                this.state.players[this.state.activePlayer].board.selectedSquares = [];
+                this.state.players[this.state.activePlayerId].board.selectedSquares = [];
                 this.state.phase = PHASES.targeting;
                 if (!this.activePlayerIsHuman()) {
-                    console.log(this.selectSquare(0, ...this.activePlayer.ai.randomSquare()));
+                    console.log(this.selectSquare(0, ...this.state.activePlayer.ai.randomSquare()));
                     console.log(this.resolveFire(0));
                     this.state.phase = PHASES.maintenance;
                     this.update();
@@ -39,10 +39,6 @@ class SpaceShipGame {
             default:
                 break
         }
-    }
-
-    get activePlayer () {
-        return this.state.players[this.state.activePlayer];
     }
 
     placeShip (playerId, x, y) {
@@ -97,11 +93,11 @@ class SpaceShipGame {
     };
 
     activePlayerIsHuman() {
-        return this.state.players[this.state.activePlayer].isHuman;
+        return this.state.players[this.state.activePlayerId].isHuman;
     }
 
     get nextShipToPlace () {
-        let currentPlayer = this.state.activePlayer;
+        let currentPlayer = this.state.activePlayerId;
         let shipId = this.state.players[currentPlayer].peekNextShipToPlace();
         return shipId;
     }

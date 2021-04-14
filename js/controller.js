@@ -42,7 +42,7 @@ class Controller {
             return;
         }
 
-        let currentPlayer = this.game.state.activePlayer;
+        let currentPlayer = this.game.state.activePlayerId;
         let shipId = this.game.nextShipToPlace;
         switch (this.game.state.phase) {
             case PHASES.placement:
@@ -52,7 +52,9 @@ class Controller {
                 console.log(this.game.placeShip(currentPlayer, x, y));
                 break;
             case PHASES.targeting:
-                if (this.game.canPlayerSelectMore(currentPlayer)) {
+                if (this.game.canPlayerSelectMore(currentPlayer) &&
+                    playerId != this.game.state.activePlayerId)
+                {
                     console.log(this.game.selectSquare(playerId, x, y));
                     this.renderer.tagSquare(playerId, x, y, "target");
                 }
@@ -81,7 +83,7 @@ class Controller {
             return;
         }
 
-        let isHuman = game.state.players[game.state.activePlayer].isHuman;
+        let isHuman = game.state.players[game.state.activePlayerId].isHuman;
 
         switch (this.game.state.phase) {
             case PHASES.placement:

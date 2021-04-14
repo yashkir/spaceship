@@ -74,10 +74,14 @@ class Ship {
 
 class State {
     constructor () {
-        this.activePlayer = 0;
-        this.losingPlayer = null;
+        this.activePlayerId = 0;
+        this.losingPlayerId = null;
         this.players = [new Player("human", 1), new Player("computer", 0)];
         this.phase = PHASES.placement;
         this.players[1].ai = new Computer(BOARD_SIZE);
+    }
+
+    get activePlayer () {
+        return this.players[this.activePlayerId];
     }
 }
