@@ -161,30 +161,4 @@ class SpaceShipGame {
             return true;
         }
     }
-
-    commandHandler(command) {
-        let c = command.split(" ");
-        switch(c[0]) {
-            case "place":
-                return this.placeShip(c[1], c[2], c[3], c[4]);
-                break;
-            case "select":
-                //"select 1 5 6" selects player 1 square at [5,6]
-                return this.selectSquare(c[1], c[2], c[3]);
-                break;
-            case "clear":
-                //"clear 1" clears all selections on player 1's board
-                return this.clearSelection(c[1]);
-                break;
-            case "fire":
-                return this.resolveFire(c[1]);
-                break;
-            case "debug":
-                this.log("debugging");
-                break;
-            default:
-                break;
-        }
-    }
 }
-

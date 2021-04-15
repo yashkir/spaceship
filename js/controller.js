@@ -2,12 +2,6 @@ class Controller {
     constructor(game) {
         this.game = game;
         this.renderer = new HTMLView();
-        this.prompt = new CommandPrompt(command => { 
-            let message = game.commandHandler(command)
-            this.update()
-            return message;
-        });
-
 
         [0, 1].forEach((n) => {
             this.renderer.createBoard(n, this.game.state.players[n].board.width,

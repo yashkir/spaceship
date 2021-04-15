@@ -76,18 +76,6 @@ div#status-banner {
   text-align: center;
 }
 
-div#bottom-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-div#command-history {
-  font-family: monospace;
-  height: 100px;
-  overflow-y: auto;
-}
-
 div.square {
   display: inline-block;
   background-color: var(--medium-blue);
