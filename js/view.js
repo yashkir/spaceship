@@ -77,7 +77,9 @@ class HTMLView {
             for (let square of row) {
                 if (square.classList.contains(tagFrom)) {
                     square.classList.remove(tagFrom);
-                    square.classList.add(tagTo);
+                    if (tagTo != null) {
+                        square.classList.add(tagTo);
+                    }
                 }
             }
         }

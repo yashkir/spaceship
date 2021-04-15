@@ -30,9 +30,15 @@ class Controller {
         }
 
         if (button == "fire" && this.game.state.phase == PHASES.targeting) {
-            let targetId = game.state.players[playerId].targetPlayerId;
+            let targetId = this.game.state.players[playerId].targetPlayerId;
             console.log(this.game.resolveFire(targetId));
             this.renderer.convertSquareTags(targetId, "target", "attacked");
+        }
+
+        if (button == "clear" && this.game.state.phase == PHASES.targeting) {
+            let targetId = this.game.state.players[playerId].targetPlayerId;
+            console.log(game.clearSelection(targetId));
+            this.renderer.convertSquareTags(targetId, "target", null);
         }
 
         this.update();
