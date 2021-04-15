@@ -31,8 +31,7 @@ class Controller {
 
         if (button == "fire" && this.game.state.phase == PHASES.targeting) {
             let targetId = this.game.state.players[playerId].targetPlayerId;
-            console.log(this.game.resolveFire(targetId));
-            this.renderer.convertSquareTags(targetId, "target", "attacked");
+            this.fireOn(targetId);
         }
 
         if (button == "clear" && this.game.state.phase == PHASES.targeting) {
@@ -60,6 +59,11 @@ class Controller {
                 console.log(this.game.placeShip(currentPlayerId, x, y));
                 break;
             case PHASES.targeting:
+                // TODO this breaks multi-shot and is not concerned with who is firing.
+                if (findPointInList([x, y], this.game.state.players[playerId].board.selectedSquares) != -1) {
+                    this.fireOn(playerId);
+                }
+
                 if (this.game.canPlayerSelectMore(currentPlayerId) &&
                     playerId != this.game.state.activePlayerId)
                 {
@@ -155,5 +159,10 @@ class Controller {
             let y = attack[1];
             this.renderer.tagSquare(boardId, x, y, "attacked")
         }
+    }
+
+    fireOn(targetId) {
+        console.log(this.game.resolveFire(targetId));
+        this.renderer.convertSquareTags(targetId, "target", "attacked");
     }
 }
