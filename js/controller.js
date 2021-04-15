@@ -44,17 +44,17 @@ class Controller {
             return;
         }
 
-        let currentPlayer = this.game.state.activePlayerId;
+        let currentPlayerId = this.game.state.activePlayerId;
         let shipId = this.game.nextShipToPlace;
         switch (this.game.state.phase) {
             case PHASES.placement:
-                if (shipId == null) {
+                if (shipId == null || currentPlayerId != playerId) {
                     break;
                 }
-                console.log(this.game.placeShip(currentPlayer, x, y));
+                console.log(this.game.placeShip(currentPlayerId, x, y));
                 break;
             case PHASES.targeting:
-                if (this.game.canPlayerSelectMore(currentPlayer) &&
+                if (this.game.canPlayerSelectMore(currentPlayerId) &&
                     playerId != this.game.state.activePlayerId)
                 {
                     console.log(this.game.selectSquare(playerId, x, y));
@@ -62,7 +62,11 @@ class Controller {
                 }
                 break;
             case PHASES.firing:
+                break;
             case PHASES.maintenance:
+                break;
+            default:
+                break;
         }
 
         this.game.update();
