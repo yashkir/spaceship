@@ -24,12 +24,24 @@ class HTMLView {
                 buttonClickHandler(0, evt.target.id.slice(3));
             }
         });
+
+        this.boards.forEach(board => {
+            board.addEventListener("click", (evt) => {
+                if (evt.target.classList.contains(SQUARE_CLASS)) {
+                    let boardId, x, y;
+                    [boardId, x, y] = evt.target.id.split('-');
+                    this.clickHandler(boardId, x ,y);
+                }
+            });
+        });
     }
 
     createBoard(boardId, width, height, clickHandler) {
         this.clickHandler = clickHandler;
         this.squares[boardId] = Array(width);
         let targetElement = this.boards[boardId];
+        
+        targetElement.innerHTML = "";
 
         for (let i = 0; i < width; i++) {
             this.squares[boardId][i] = Array(height);
@@ -46,14 +58,6 @@ class HTMLView {
 
             targetElement.append(document.createElement("br"));
         }
-
-        targetElement.addEventListener("click", (evt) => {
-            if (evt.target.classList.contains(SQUARE_CLASS)) {
-                let boardId, x, y;
-                [boardId, x, y] = evt.target.id.split('-');
-                this.clickHandler(boardId, x ,y);
-            }
-        });
     }
 
     createNewGameButton(handler) {

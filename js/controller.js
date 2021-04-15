@@ -1,7 +1,13 @@
 class Controller {
-    constructor(game) {
-        this.game = game;
+    constructor() {
         this.renderer = new HTMLView();
+        this.renderer.attachHandlers(this.buttonClickHandler.bind(this))
+
+        this.newGame();
+    }
+
+    newGame() {
+        this.game = new SpaceShipGame();
 
         [0, 1].forEach((n) => {
             this.renderer.createBoard(n, this.game.state.players[n].board.width,
@@ -12,18 +18,12 @@ class Controller {
         this.renderer.setNames([this.game.state.players[0].name,
                                 this.game.state.players[1].name]);
 
-        this.renderer.attachHandlers(this.buttonClickHandler.bind(this))
-
         this.update();
     }
 
-    newGame() {
-        // TODO
-    }
-
     buttonClickHandler(playerId, button) {
-        if (!game.activePlayerIsHuman() ||
-            game.state.phase == PHASES.end) {
+        if (!this.game.activePlayerIsHuman() ||
+            this.game.state.phase == PHASES.end) {
             return;
         }
 
@@ -34,7 +34,7 @@ class Controller {
 
         if (button == "clear" && this.game.state.phase == PHASES.targeting) {
             let targetId = this.game.state.players[playerId].targetPlayerId;
-            this.game.log(game.clearSelection(targetId));
+            this.game.log(this.game.clearSelection(targetId));
             this.renderer.convertSquareTags(targetId, "target", null);
         }
 
@@ -42,8 +42,8 @@ class Controller {
     }
 
     boardClickHandler(playerId, x, y) {
-        if (!game.activePlayerIsHuman() ||
-            game.state.phase == PHASES.end) {
+        if (!this.game.activePlayerIsHuman() ||
+            this.game.state.phase == PHASES.end) {
             return;
         }
 
@@ -92,9 +92,9 @@ class Controller {
             this.renderAttacks(this.game.state.players[n].board.attacks, n);
         }
 
-        if (game.state.losingPlayer) {
+        if (this.game.state.losingPlayer) {
             // TODO allow for a restart
-            this.renderer.updateStatus(`Player ${game.state.losingPlayer.name} has LOST!<br>`);
+            this.renderer.updateStatus(`Player ${this.game.state.losingPlayer.name} has LOST!<br>`);
 
             if (!this.newGameDisplayed) {
                 this.renderer.createNewGameButton(() => this.newGame());
@@ -104,7 +104,7 @@ class Controller {
             return;
         }
 
-        let isHuman = game.state.activePlayer.isHuman;
+        let isHuman = this.game.state.activePlayer.isHuman;
 
         switch (this.game.state.phase) {
             case PHASES.placement:
@@ -137,7 +137,7 @@ class Controller {
     }
 
     renderShips(ships, playerNum) {
-        if (!game.state.players[playerNum].isHuman) {
+        if (!this.game.state.players[playerNum].isHuman) {
             return;
         }
 
