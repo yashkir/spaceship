@@ -1,15 +1,15 @@
 class SpaceShipGame {
-    constructor () {
+    constructor() {
         this.state = new State();
     }
 
-    log (message) {
+    log(message) {
         if (typeof DEBUG !== 'undefined') {
             console.log(message);
         }
     }
 
-    update () {
+    update() {
         //FIX only for two players
         if (this.state.phase != PHASES.placement) {
             for (let player of this.state.players) {
@@ -65,7 +65,7 @@ class SpaceShipGame {
         }
     }
 
-    placeShip (playerId, x, y) {
+    placeShip(playerId, x, y) {
         let valid = true;
         let player = this.state.players[playerId];
         let shipId = player.peekNextShipToPlace();
@@ -94,7 +94,7 @@ class SpaceShipGame {
         }
     }
 
-    selectSquare (playerId, x, y) {
+    selectSquare(playerId, x, y) {
         let board = this.state.players[playerId].board;
 
         if (board.selectedSquares.length >= this.state.players[playerId].maxShots) {
@@ -105,12 +105,12 @@ class SpaceShipGame {
         }
     }
 
-    clearSelection (playerId) {
+    clearSelection(playerId) {
         this.state.players[playerId].board.selectedSquares = [];
         return `cleared selection on player ${playerId} board`;
     }
 
-    resolveFire (targetId) {
+    resolveFire(targetId) {
         this.state.phase = PHASES.firing;
 
         let ships = this.state.players[targetId].ships;
@@ -147,13 +147,13 @@ class SpaceShipGame {
         return this.state.activePlayer.isHuman;
     }
 
-    get nextShipToPlace () {
+    get nextShipToPlace() {
         let currentPlayer = this.state.activePlayerId;
         let shipId = this.state.players[currentPlayer].peekNextShipToPlace();
         return shipId;
     }
 
-    canPlayerSelectMore (playerId) {
+    canPlayerSelectMore(playerId) {
         let player = this.state.players[playerId];
         let target = this.state.players[player.targetPlayerId];
 

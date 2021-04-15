@@ -9,7 +9,7 @@ const PHASES = {
 }
 
 class Board {
-    constructor () {
+    constructor() {
         this.width = BOARD_SIZE[0];
         this.height = BOARD_SIZE[1];
         this.squares = new Array(this.width);
@@ -23,7 +23,7 @@ class Board {
 }
 
 class Player {
-    constructor (name, targetPlayerId) {
+    constructor(name, targetPlayerId) {
         this.name = name;
         this.isHuman = name === "computer" ? false : true;
         this.board = new Board();
@@ -35,18 +35,18 @@ class Player {
         this.totalShipSquares = 0;
     }
 
-    peekNextShipToPlace () {
+    peekNextShipToPlace() {
         return this.shipsToPlace.length ? this.shipsToPlace[0]: null;
     }
 
-    getNextShipToPlace () {
+    getNextShipToPlace() {
         return this.shipsToPlace.shift();
     }
 
 }
 
 class Ship {
-    constructor (size, position) {
+    constructor(size, position) {
         this.size = size;
         this.position = position;
         this.hits = 0;
@@ -68,7 +68,7 @@ class Ship {
         }
     }
 
-    get partPositions () {
+    get partPositions() {
         let positions = [];
 
         for (const part of this.parts) {
@@ -78,11 +78,11 @@ class Ship {
         return positions;
     }
 
-    get isAlive () {
+    get isAlive() {
         return this.hits < this.size;
     }
 
-    collidesWith (ship) {
+    collidesWith(ship) {
         for (let partA of this.partPositions) {
             for (let partB of ship.partPositions) {
                 if (comparePoints(partA, partB)) {
@@ -96,7 +96,7 @@ class Ship {
 }
 
 class State {
-    constructor () {
+    constructor() {
         this.activePlayerId = 0;
         this.losingPlayer = null;
         this.players = [new Player("human", 1), new Player("computer", 0)];
@@ -104,7 +104,7 @@ class State {
         this.players[1].ai = new Computer(BOARD_SIZE);
     }
 
-    get activePlayer () {
+    get activePlayer() {
         return this.players[this.activePlayerId];
     }
 }

@@ -1,5 +1,5 @@
 class Controller {
-    constructor (game) {
+    constructor(game) {
         this.game = game;
         this.renderer = new HTMLView();
         this.prompt = new CommandPrompt(command => { 
@@ -84,7 +84,7 @@ class Controller {
         this.update();
     }
 
-    update () {
+    update() {
         this.game.update();
 
         for (let n of [0, 1]) {
@@ -123,7 +123,7 @@ class Controller {
         }
     }
     
-    renderShipStatuses (ships, playerNum) {
+    renderShipStatuses(ships, playerNum) {
         let statuses = [];
         for (let ship of ships) {
             status = `${ship.name} ${!ship.isAlive ? '(dead)': ''}`;

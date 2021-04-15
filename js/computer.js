@@ -1,5 +1,5 @@
 class Computer {
-    constructor (boardSize) {
+    constructor(boardSize) {
         this.boardSize = boardSize;
         this.enemyBoard = Array(boardSize[0]).fill().map(() => Array(boardSize[1])); 
         this.possibleAttacks = [];
@@ -53,7 +53,7 @@ class Computer {
         this.lastHit = true;
     }
 
-    randomSquare () {
+    randomSquare() {
         let x = Math.floor(Math.random() * this.boardSize[0]);
         let y = Math.floor(Math.random() * this.boardSize[1]);
 
