@@ -81,6 +81,18 @@ class Ship {
     get isAlive () {
         return this.hits < this.size;
     }
+
+    collidesWith (ship) {
+        for (let partA of this.partPositions) {
+            for (let partB of ship.partPositions) {
+                if (comparePoints(partA, partB)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
 
 class State {

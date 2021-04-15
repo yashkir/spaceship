@@ -52,6 +52,13 @@ class SpaceShipGame {
         let player = this.state.players[playerId];
         let shipId = player.peekNextShipToPlace();
         let ship = new Ship(shipId, [parseInt(x), parseInt(y)]);
+
+        for (let placedShip of player.ships) {
+            if (ship.collidesWith(placedShip)) {
+                valid = false;
+            }
+        }
+
         for (const position of ship.partPositions) {
             if (position[0] >= player.board.width ||
                 position[1] >= player.board.height)
