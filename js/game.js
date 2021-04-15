@@ -3,6 +3,12 @@ class SpaceShipGame {
         this.state = new State();
     }
 
+    log (message) {
+        if (typeof DEBUG !== 'undefined') {
+            console.log(message);
+        }
+    }
+
     update () {
         //FIX only for two players
         if (this.state.phase != PHASES.placement) {
@@ -25,7 +31,7 @@ class SpaceShipGame {
 
                         while (this.nextShipToPlace != null) {
                             let [x, y] = this.state.activePlayer.ai.randomSquare();
-                            console.log(this.placeShip(this.state.activePlayerId, x, y));
+                            this.log(this.placeShip(this.state.activePlayerId, x, y));
                         }
                     }
 
@@ -49,8 +55,8 @@ class SpaceShipGame {
                 this.state.activePlayer.board.selectedSquares = [];
                 this.state.phase = PHASES.targeting;
                 if (!this.activePlayerIsHuman()) {
-                    console.log(this.selectSquare(0, ...this.state.activePlayer.ai.getTarget()));
-                    console.log(this.resolveFire(0));
+                    this.log(this.selectSquare(0, ...this.state.activePlayer.ai.getTarget()));
+                    this.log(this.resolveFire(0));
                     this.state.phase = PHASES.maintenance;
                     this.update();
                 }
@@ -174,7 +180,7 @@ class SpaceShipGame {
                 return this.resolveFire(c[1]);
                 break;
             case "debug":
-                console.log("debugging");
+                this.log("debugging");
                 break;
             default:
                 break;
