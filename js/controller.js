@@ -65,7 +65,8 @@ class Controller {
                 }
 
                 if (this.game.canPlayerSelectMore(currentPlayerId) &&
-                    playerId != this.game.state.activePlayerId)
+                    playerId != this.game.state.activePlayerId &&
+                    findPointInList([x, y], this.game.state.players[playerId].board.attacks) == -1)
                 {
                     console.log(this.game.selectSquare(playerId, x, y));
                     this.renderer.tagSquare(playerId, x, y, "target");
