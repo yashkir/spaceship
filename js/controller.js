@@ -23,6 +23,10 @@ class Controller {
         this.update();
     }
 
+    newGame() {
+        // TODO
+    }
+
     buttonClickHandler(playerId, button) {
         if (!game.activePlayerIsHuman() ||
             game.state.phase == PHASES.end) {
@@ -96,7 +100,13 @@ class Controller {
 
         if (game.state.losingPlayer) {
             // TODO allow for a restart
-            this.renderer.updateStatus(`Player ${game.state.losingPlayer.name} has LOST!`);
+            this.renderer.updateStatus(`Player ${game.state.losingPlayer.name} has LOST!<br>`);
+
+            if (!this.newGameDisplayed) {
+                this.renderer.createNewGameButton(() => this.newGame());
+                this.newGameDisplayed = true;
+            }
+
             return;
         }
 

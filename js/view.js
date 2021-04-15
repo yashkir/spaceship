@@ -56,6 +56,14 @@ class HTMLView {
         });
     }
 
+    createNewGameButton(handler) {
+        let button = document.createElement("button");
+        button.innerHTML = "NEW GAME";
+        button.addEventListener("click", handler);
+
+        this.statusEl.appendChild(button);
+    }
+
     setNames(names) {
         [0, 1].forEach(i => this.playerNames[i].textContent = names[i]);
     }
