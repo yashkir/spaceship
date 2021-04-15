@@ -18,13 +18,25 @@ class SpaceShipGame {
         switch (this.state.phase) {
             case PHASES.placement:
                 if (this.nextShipToPlace == null) {
+                    // TODO fix the hack below
+                    // let the computer place too
+                    if (this.state.activePlayerId == 0) {
+                        this.state.activePlayerId = ++this.state.activePlayerId % 2;
+
+                        while (this.nextShipToPlace != null) {
+                            let [x, y] = this.state.activePlayer.ai.randomSquare();
+                            console.log(this.placeShip(this.state.activePlayerId, x, y));
+                        }
+                    }
+
                     //FIX, this will calculate after player is done only
                     for (let player of this.state.players) {
                         for (let ship of player.ships) {
                             player.totalShipSquares += ship.size;
                         }
                     }
-                    this.state.phase = PHASES.targeting;
+
+                    this.state.phase = PHASES.maintenance;
                 }
                 break;
             case PHASES.targeting:
