@@ -1,7 +1,7 @@
 Spaceship
 =========
 
-A battleship game set in space.
+A battleship game set in space. Play it [here](https://yashkir.github.io/spaceship).
 
 Screenshots
 -----------
