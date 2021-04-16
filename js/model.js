@@ -31,7 +31,7 @@ class Player {
         this.targetsSelected = [];
         this.targetPlayerId = targetPlayerId;
         this.maxShots = 1;
-        this.shipsToPlace = [3, 2, 1];
+        this.shipsToPlace = [4, 3, 2, 2];
         this.totalShipSquares = 0;
     }
 
@@ -62,6 +62,10 @@ class Ship {
             case 3:
                 this.parts = [[0, 0], [1, 0], [2, 0]];
                 this.name = "Battleship";
+                break;
+            case 4:
+                this.parts = [[0, 0], [1, 0], [1, 1], [0, 1]];
+                this.name = "Station";
                 break;
             default:
                 break;
