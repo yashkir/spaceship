@@ -3,6 +3,8 @@ Spaceship
 
 A battleship game set in space. Play it [here](https://yashkir.github.io/spaceship).
 
+Includes a basic AI.
+
 Screenshots
 -----------
 
@@ -16,11 +18,13 @@ Getting Started
 --------------
 * Click the board to place your ships.
 * Click the computer's board to select your target.
-* Click FIRE to attack.
+* Click FIRE to attack (or click the target square again).
+* RED is a hit, when all ships are dead you win.
 
 Planned Features
 ----------------
 
+* set ship orientation when placing
 * multiplayer (hot-seat)
 * multiplayer (online)
 * sound
